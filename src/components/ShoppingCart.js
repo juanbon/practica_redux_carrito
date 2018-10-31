@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Panel, Table, Button, Glyphicon } from 'react-bootstrap';
 import store from '../store';
+import {removeFromCart} from '../actionCreators';
 
 const styles = {
   footer: {
@@ -33,6 +34,13 @@ class ShoppingCart extends Component {
   }
 
   render() {
+
+
+
+// let h = time();
+
+// console.log(h);
+
     return (
       <Panel header="Shopping Cart">
         <Table fill>
@@ -62,10 +70,7 @@ class ShoppingCart extends Component {
 
     //   console.log(product);
 
-    store.dispatch({
-      type: "REMOVE_FROM_CART",
-      product 
-    })
+    store.dispatch(removeFromCart(product)); 
 
   }
 }
