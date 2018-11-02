@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Panel, Table, Button, Glyphicon } from 'react-bootstrap';
 import store from '../store';
 import {removeFromCart} from '../actionCreators';
+import { connect } from 'react-redux';
 
 const styles = {
   footer: {
@@ -43,7 +44,7 @@ class ShoppingCart extends Component {
 
     return (
       <Panel header="Shopping Cart">
-        <Table fill>
+        <Table  fill>
           <tbody>
             {this.state.cart.map(product =>
               <tr key={product.id}>
@@ -75,4 +76,5 @@ class ShoppingCart extends Component {
   }
 }
 
-export default ShoppingCart;
+
+export default connect()(ShoppingCart);
