@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Panel, Table, Button, Glyphicon } from 'react-bootstrap';
-import store from '../store';
+// import store from '../store';
 import {removeFromCart} from '../actionCreators';
 import { connect } from 'react-redux';
 
@@ -12,30 +12,28 @@ const styles = {
 
 
 class ShoppingCart extends Component {
-  constructor() {
-    super();
-    this.removeFromCart = this.removeFromCart.bind(this);
 
-    this.state = {
-      cart: []
-    }
+  // constructor() {
+  //   super();
+  //   this.removeFromCart = this.removeFromCart.bind(this);
 
+  //   this.state = {
+  //     cart: []
+  //   }
 
-    store.subscribe(() => {
+  //   store.subscribe(() => {
 
-      this.setState({
+  //     this.setState({
 
-        cart: store.getState().cart
+  //       cart: store.getState().cart
 
-      });
+  //     });
 
-    });
+  //   });
 
-
-  }
+  // }
 
   render() {
-
 
 
 // let h = time();
@@ -46,18 +44,21 @@ class ShoppingCart extends Component {
       <Panel header="Shopping Cart">
         <Table  fill>
           <tbody>
-            {this.state.cart.map(product =>
+
+     
+            
+            {this.props.cart.map(product =>
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td className="text-right">${product.price}</td>
-                <td className="text-right"><Button bsSize="xsmall" bsStyle="danger" onClick={() => this.removeFromCart(product)}><Glyphicon glyph="trash" /></Button></td>
+                <td className="text-right"><Button bsSize="xsmall" bsStyle="danger" onClick={() => this.props.removeFromCart(product)}><Glyphicon glyph="trash" /></Button></td>
               </tr>
             )}
           </tbody>
           <tfoot>
             <tr>
               <td colSpan="4" style={styles.footer}>
-                Total: ${this.state.cart.reduce((sum, product) => sum + product.price, 0)}
+                Total: ${this.props.cart.reduce((sum, product) => sum + product.price, 0)}
               </td>
             </tr>
           </tfoot>
@@ -67,14 +68,37 @@ class ShoppingCart extends Component {
     )
   }
 
-  removeFromCart(product) {
+  // removeFromCart(product) {
+  //   //   console.log(product);
+  //   store.dispatch(removeFromCart(product)); 
+  // }
 
-    //   console.log(product);
-
-    store.dispatch(removeFromCart(product)); 
-
-  }
 }
 
 
-export default connect()(ShoppingCart);
+
+
+const mapsStateToProps = state => {
+
+    return {
+        cart:state.cart
+    };
+
+}
+
+
+
+
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeFromCart(product){
+      dispatch(removeFromCart(product));
+    }
+  };
+}
+
+
+
+export default connect(mapsStateToProps)(ShoppingCart);
