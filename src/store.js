@@ -18,6 +18,4 @@ const reducer = (state, action) => {
 	return state;
 };
 
-export default function configureStore(){
-	return createStore(reducer, { cart: [] });
-}
+export default createStore(reducer, { cart: [] });
